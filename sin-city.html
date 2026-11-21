@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sin City - PROGRAMS BY JOE</title>
+<meta name="description" content="Frank Miller's Sin City is known for it's noir style with vibrant hints of red to add contrast to the scene. I have always loved the effect this can have on a scene. So I decided to write a shader...">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="index.html"><img src="uploads/3/0/5/5/30553863/published/programsbyjoemedium.png" alt="Programs By Joe"></a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle menu">
+    <label for="nav-toggle" class="hamburger"><span></span></label>
+    <nav><ul><li><a href="index.html">About</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="personal-projects1.html">Personal Projects</a></li><li><a href="resume.html">Resume</a></li><li><a href="tutorials.html">Tutorials</a></li><li><a href="contact.html">Contact</a></li></ul></nav>
+  </div>
+</header>
+<main>
+<section class="band"><div class="container">
+<div class="cols"><div class="col" style="flex:1 1 calc(50% - 30px)">
+<div class="text">Frank Miller's Sin City is known for it's noir style with vibrant hints of red to add contrast to the scene. I have always loved the effect this can have on a scene. So I decided to write a shader that would make that same effect in my games and now I want to share that shader with you! I will assume that you have some previous knowledge of shaders and how to write them, but if this is your first time writing a shader <a href="shaders-beginner.html">click this link</a> to get a little background information on shaders, how to write them, and some basic shaders to get you started.</div>
+</div><div class="col" style="flex:1 1 calc(50% - 30px)">
+<figure style="text-align:center"><img alt="Picture" loading="lazy" src="uploads/3/0/5/5/30553863/giphy_4_orig.gif"/></figure>
+</div></div>
+<h2>Step 1 : Declare our Properties</h2>
+<div class="text">To make this shader, 2 things are needed,  a variable for our main texture and a float range to control the intensity of the shader. I called my variables _MainTex and _bwBlend. We need these variables for a couple reasons, the _MainTex variable will be used to hold the texture that will be modified. the _bwBlend variable is a float that will change the intensity of our noir effect. A value of 0 will turn off the image effect while a value of 1 will be fully black and white.</div>
+<div class="code-editor--dark">
+<div class="header">
+<div class="text">Properties</div>
+</div>
+<div class="body-code">
+<pre class="editor"></pre>
+</div>
+</div>
+<div style="clear:both;"></div>
+<div class="spacer" style="height:50px"></div>
+<h2>Step 2 : Start the CG code</h2>
+<div class="text">The next step is to start the CG Program. This is a vertex frag shader so use the pragma for vertex vert_img and fragment frag<br/></div>
+<div class="code-editor--dark">
+<div class="header">
+<div class="text">CGPROGRAM</div>
+</div>
+<div class="body-code">
+<pre class="editor"></pre>
+</div>
+</div>
+<div style="clear:both;"></div>
+<div class="spacer" style="height:50px"></div>
+<h2>Step 3 : Create CG variables</h2>
+<div class="text">Create the cg variables these will need to have the same name as their SubShader Properties names or else they will not work! These will be uniform variables.</div>
+<div class="code-editor--dark">
+<div class="header">
+<div class="text">Variables</div>
+</div>
+<div class="body-code">
+<pre class="editor"></pre>
+</div>
+</div>
+<div style="clear:both;"></div>
+<div class="spacer" style="height:50px"></div>
+<h2>Step 4 : Frag function</h2>
+<div class="text">This is where all the magic happens! What the code will do is take the rgb values from the _MainTex and store them in a float4. Next step would be to make the grayscale value for each channel. To do this we will make a float called lum and pass in these magic numbers to grayscale any color. After we have our grayscale value we can assign it to the green and blue values of of a float3, leaving the red as the original float4's red channel. Then create a new float4 and store your original float4 in it. After that do a simple lerp between your first float4's.rgb and your float3 that holds the red channel and the two grayscale channels. Finally return your new float4 and you will have a stunning new image effect!</div>
+<div class="code-editor--dark">
+<div class="header">
+<div class="text">Frag</div>
+</div>
+<div class="body-code">
+<pre class="editor"></pre>
+</div>
+</div>
+<div style="clear:both;"></div>
+<div class="spacer" style="height:50px"></div>
+<h2>Great Job!<br/></h2>
+<div class="text">Thats everything for the .shader file! next thing will be to implement the corresponding c# script! <a href="https://www.dropbox.com/s/09aer7qruplwoui/SinCityShader.shader?dl=0" target="_blank">Click here to see my file</a>!</div>
+<div class="spacer" style="height:50px"></div>
+<h2>Step 5 : Create C# variables</h2>
+<div class="text">The 2 variables needed for the C# portion are used to interface with the properties of the shader script. We must write a C# script to apply to our camera because shader files can not be directly applied to a camera. Therefore we need a variable to control the intensity and a variable to hold the material is needed. </div>
+<div class="code-editor--dark">
+<div class="header">
+<div class="text">C# Variables</div>
+</div>
+<div class="body-code">
+<pre class="editor"></pre>
+</div>
+</div>
+<div style="clear:both;"></div>
+<div class="spacer" style="height:50px"></div>
+<h2>Step 6 : On Awake</h2>
+<div class="text">This is an easy step, find your image effect and assign it to your material, to do this you will need to call the function Shader.Find() Then pass in the path and the name of your shader. Usually I like to add a short debug.log after this line that will let the dev know if the material has been found or not, this is not necessary it just makes troubleshooting easier.</div>
+<div class="code-editor--dark">
+<div class="header">
+<div class="text">Awake</div>
+</div>
+<div class="body-code">
+<pre class="editor"></pre>
+</div>
+</div>
+<div style="clear:both;"></div>
+<div class="spacer" style="height:50px"></div>
+<h2>Step 7 : Postprocess the image</h2>
+<div class="text">This is where we are actually sending our shader the information from our C# script. To do this we will use the OnRenderImage() function. Pass in your source RenderTexture and your destination RenderTexture. Next we do a simple if statement to check if the intensity is 0, if it is then we don't really have to do anything because our intensity is off.  Otherwise we will assign our material's _bwBlend the C#'s intensity variable. Then call the Blit() to render it to our screen.</div>
+<div class="code-editor--dark">
+<div class="header">
+<div class="text">On Render Image<br/></div>
+</div>
+<div class="body-code">
+<pre class="editor"></pre>
+</div>
+</div>
+<div style="clear:both;"></div>
+<div class="spacer" style="height:50px"></div>
+<h2>Great Job!</h2>
+<div class="text">Thats everything for the .cpp file! That's everything for this shader! Enjoy and be sure to test it out on some cool scenes!  <a href="https://www.dropbox.com/s/xg9y1lh3gwgh0bb/SinCityScript.cs?dl=0" target="_blank">Click here to see my file</a>!</div>
+<figure style="text-align:center"><img alt="Picture" loading="lazy" src="uploads/3/0/5/5/30553863/giphy_5_orig.gif"/></figure>
+</div></section>
+</main>
+</body>
+</html>

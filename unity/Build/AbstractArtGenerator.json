@@ -1,0 +1,9 @@
+{
+"TOTAL_MEMORY": 2130706432,
+"dataUrl": "AbstractArtGenerator.data.unityweb",
+"asmCodeUrl": "AbstractArtGenerator.asm.code.unityweb",
+"asmMemoryUrl": "AbstractArtGenerator.asm.memory.unityweb",
+"asmFrameworkUrl": "AbstractArtGenerator.asm.framework.unityweb",
+"splashScreenStyle": "Dark",
+"backgroundColor": "#222C36"
+}
